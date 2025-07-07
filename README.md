@@ -1,52 +1,59 @@
-# Hospital Management System (OSGi)
+# Hospital Management System (OSGi) — Prescription Management Module
 
 ## Overview
-This is a simple CLI-based Hospital Management System built using the Eclipse Equinox OSGi framework. It serves as a university assignment to practice Microkernel Architecture by implementing modular and extensible services.
+This is a CLI-based Prescription Management System built using the Eclipse Equinox OSGi framework. It is part of a larger Hospital Management System project designed to practice Microkernel Architecture by implementing modular and extensible services.
+
+The Prescription Management Module consists of three core services that communicate using the publisher-subscriber pattern:
+
+- **Dosage Service** (Publisher)
+- **Prescription Service** (Publisher)
+- **Pharmacy Service** (Subscriber)
 
 ## Features
-The system includes the following services:
+The module includes the following services:
 
-#### 1) Patient Admission Service
-#### 2) Pharmacy Service
-#### 3) Surgery Scheduling Scervie
-  - **Surgery Schedule Service**: Manages surgery scheduling.
-  - **Surgery Room Allocation Service**: Allocates surgery rooms based on availability.
-  - **Surgeon Allocation Service**: Assigns surgeons to scheduled surgeries.
-  - **Report Generation Service**: Generates reports related to surgeries and resource allocation.
+#### 1) Dosage Service
+- Calculates and validates medicine dosages.
+- Publishes dosage events to subscribers.
+
+#### 2) Prescription Service
+- Manages creation, updating, and tracking of prescriptions.
+- Publishes prescription events for other services to consume.
+
+#### 3) Pharmacy Service
+- Subscribes to dosage and prescription events.
+- Handles medication dispensing and inventory updates.
 
 ## Technologies Used
 - **Java**
 - **Eclipse Equinox - OSGi Framework**
 - **Microkernel Architecture**
+- **Maven** (for build and dependency management)
 
 ## Project Structure
-```
 
+```
 HospitalManagementSystem/
-├── PatientAdmissionService
-├── PharmacyService
-├── SurgeryScheduleService/  # Manages surgery scheduling
-  ├── SurgeryRoomAllocationService/  # Allocates rooms
-  ├── SurgeonAllocationService/  # Assigns surgeons
-  └──  ReportGenerationService/  # Generates surgery reports
+├── DosageService/ # Dosage calculations and event publishing
+├── PrescriptionService/ # Prescription management and event publishing
+└── PharmacyService/ # Subscriber service for pharmacy operations
 ```
 
 ## Running on Eclipse
 1. Open **Eclipse IDE** and install the **OSGi Development Tools Plugin** if not already installed.
 2. Import the project into Eclipse:
-   - Click **File** → **Import** → **Existing Projects into Workspace**.
+   - Click **File** → **Import** → **Existing Maven Projects**.
    - Select the project folder and click **Finish**.
 3. Configure the **Run Configuration**:
    - Go to **Run** → **Run Configurations**.
    - Create a new **OSGi Framework** configuration.
-   - Select all the required bundles.
+   - Select all required bundles (DosageService, PrescriptionService, PharmacyService).
    - Click **Apply** and then **Run**.
 4. Open the OSGi console in Eclipse to interact with the system.
 
 ## Usage
-- Interact with the CLI to schedule surgeries, allocate rooms and surgeons, and generate reports.
-- Ensure all required bundles are installed and started before running operations.
+- Use the CLI interface in the OSGi console to create prescriptions, update dosages, and process pharmacy dispensing.
+- Ensure all required bundles are installed and active before performing operations.
 
 ## Contributing
 Feel free to fork this repository and submit pull requests for improvements and new features.
-
